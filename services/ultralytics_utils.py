@@ -3,8 +3,6 @@ import pandas as pd
 import numpy as np
 from services.common_utils import build_data_dict
 
-
-VALID_LABELS = ['person', 'car', 'bicycle', 'motorcycle', 'bus', 'truck']
 AB_LABELS = {'person': 'PEDESTRIAN', 'car': 'CAR', 'bus': 'BUS', 'truck': 'TRUCK', 'bicycle': 'MOTOR', 'motorcycle': 'MOTOR'}
 
 def from_result(result):
@@ -25,8 +23,6 @@ def to_detections(records):
     for path, result in records:
         name = os.path.basename(path)
         labels, bboxes, scores = from_result(result)
-        keep  = [label in VALID_LABELS for label in labels]
-        labels, bboxes, scores = labels[keep], bboxes[keep], scores[keep]
         labels = [AB_LABELS[label] for label in labels]
         datas = [build_data_dict(name, label, bbox, score) for label, bbox, score in zip(labels, bboxes, scores)]
         datas_list.extend(datas)
