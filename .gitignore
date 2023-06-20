@@ -1,6 +1,8 @@
 datasets/
 results/
 runs/
+externals/
 
 .ipynb_checkpoints/
 yolov8x.pt
+
