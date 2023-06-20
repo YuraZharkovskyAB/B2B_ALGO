@@ -17,13 +17,13 @@ def from_result(result):
     return np.array(labels), np.array(bboxes), np.array(scores)
 
 
-def to_detections(records):
-    names = [os.path.basename(path) for path, _ in records]
+def to_detections(records, verbose=True):
     datas_list = []
-    for path, result in records:
+    for i, (path, result) in enumerate(records):
         name = os.path.basename(path)
         labels, bboxes, scores = from_result(result)
         labels = [AB_LABELS[label] for label in labels]
         datas = [build_data_dict(name, label, bbox, score) for label, bbox, score in zip(labels, bboxes, scores)]
         datas_list.extend(datas)
+        verbose and print(f'{i}: {name}')
     return pd.DataFrame.from_dict(datas_list)
