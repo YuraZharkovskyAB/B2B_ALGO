@@ -1,6 +1,7 @@
 datasets/
 results/
 runs/
+weights/
 
 .ipynb_checkpoints/
 services/__pycache__/
